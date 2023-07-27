@@ -24,7 +24,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         
       - name: Set up Python Env
         uses: actions/setup-python@v1
@@ -48,9 +48,9 @@ jobs:
           git add .
           git commit -m "Github action automatic update on $(date  +"%m-%d-%Y %H:%M:%S %Z")." -a
           git push 
-#       - name: Notify Telegram
-#         run: |
-#           pip install echoo
-#           date_format=$(date +"%y-%b/%-d")
-#           paper_count=$(cat info/$date_format/paper_counts.txt)
-#           echoo "arXiv has $paper_count papers on $(date  +"%m-%d-%Y %H:%M:%S %Z")" -t ${{ secrets.tg_token }} -id ${{ secrets.tg_chat_id }}
+      - name: Notify Telegram
+        run: |
+          pip install echoo
+          date_format=$(date +"%y-%b/%-d")
+          paper_count=$(cat info/$date_format/paper_counts.txt)
+          echoo "arXiv has $paper_count papers on $(date  +"%m-%d-%Y %H:%M:%S %Z")" -t ${{ secrets.TG_TOKEN }} -id ${{ secrets.TG_CHAT_ID }}
