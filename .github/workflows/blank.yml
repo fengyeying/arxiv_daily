@@ -50,6 +50,12 @@ jobs:
           git add .
           git commit -m "Github action automatic update on $(date  +"%m-%d-%Y %H:%M:%S %Z")." -a
           git push 
+      - name: send telegram
+        uses: appleboy/telegram-action@master
+        with: 
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: arXiv has $paper_count papers on $(date)
       - name: Notify Telegram
         run: |
           pip install echoo
