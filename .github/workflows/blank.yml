@@ -41,16 +41,13 @@ jobs:
       - name: Run daily arxiv 
         run: |
           python daily_arxiv.py
-          
-      - name: Push new arxiv-daily.md
-        uses: github-actions-x/commit@v2.8
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "Github action automatic update on $(date +"%m-%d-%Y %H:%M:%S %Z")"
-          files: README.md arxiv-daily.json
-          rebase: 'true'
-          name: ${{ env.GITHUB_USER_NAME }}
-          email: ${{ env.GITHUB_USER_EMAIL }}
+      - name: Commit files
+        run: |
+          git config --local user.email ${{ env.GITHUB_USER_EMAIL }}
+          git config --local user.name ${{ env.GITHUB_USER_NAME }}
+          git add .
+          git commit -m "Github action automatic update on $(date  +"%m-%d-%Y %H:%M:%S %Z")." -a
+          git push 
 #       - name: Notify Telegram
 #         run: |
 #           pip install echoo
